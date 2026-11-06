@@ -1,0 +1,167 @@
+{
+ "seed": 7807,
+ "predictions": {
+  "ml_f1": {
+   "text": "=0.75",
+   "time": "13:06:24"
+  },
+  "ml_lr": {
+   "text": "lr=0.001 thì đường loss giảm chậm và mượt, lr=50 thì đường loss giao động mạnh và có thể nhảy vọt ",
+   "time": "13:06:44"
+  },
+  "dl_curve": {
+   "text": "(1) val loss không giảm mãi, sẽ chững lại. (2) MLP sẽ hơn",
+   "time": "13:07:23"
+  },
+  "dl_relu": {
+   "text": "tương đương mô hình logistic regression , F1 gần như giữ nguyên",
+   "time": "13:07:32"
+  },
+  "emb_search": {
+   "text": "ham",
+   "time": "13:08:12"
+  },
+  "emb_tricky": {
+   "text": "Phần 3",
+   "time": "13:08:38"
+  },
+  "llm_models": {
+   "text": "gpt-6.1-terra cao hơn",
+   "time": "13:10:10"
+  },
+  "llm_fewshot": {
+   "text": "tăng nhẹ",
+   "time": "13:12:42"
+  },
+  "tradeoff": {
+   "text": "BoW + Logistic Regression và MiniLM + Logistic Regression",
+   "time": "13:14:01"
+  },
+  "hard_eval": {
+   "text": "spam né từu kháo khó với BoW, prompt injection là vấn đề với LLM",
+   "time": "13:16:06"
+  }
+ },
+ "checks": {
+  "1.1 vectorize": true,
+  "1.2 sigmoid / predict_proba": true,
+  "1.3 train_logreg": true,
+  "1.4 metrics": true,
+  "2.1 build_mlp": true,
+  "2.2 train_mlp": true,
+  "3.1–3.2 cosine / top_k_similar": true,
+  "3.3 knn_predict": true,
+  "4.2–4.3 prompt / parse_label": true,
+  "4.1 + 4.4 call_openai / llm_classify_batch": true,
+  "tính tay: baseline_accuracy": false,
+  "tính tay: sigmoid_0": false,
+  "tính tay: f1_example": false,
+  "tính tay: cosine_example": false,
+  "tính tay: llm_cost_per_day": false
+ },
+ "experiments": [
+  {
+   "key": "ml_f1",
+   "time": "13:06:26"
+  },
+  {
+   "key": "ml_lr",
+   "time": "13:06:46"
+  },
+  {
+   "key": "dl_curve",
+   "time": "13:07:25"
+  },
+  {
+   "key": "dl_relu",
+   "time": "13:07:33"
+  },
+  {
+   "key": "emb_search",
+   "time": "13:08:14"
+  },
+  {
+   "key": "emb_tricky",
+   "time": "13:08:41"
+  },
+  {
+   "key": "llm_models",
+   "time": "13:10:12"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "13:12:44"
+  },
+  {
+   "key": "tradeoff",
+   "time": "13:14:03"
+  },
+  {
+   "key": "hard_eval",
+   "time": "13:16:08"
+  }
+ ],
+ "challenge": 1,
+ "results": {
+  "1. BoW + LogReg (tự code)": {
+   "accuracy": 0.9716129032258064,
+   "precision": 0.974025974025974,
+   "recall": 0.7894736842105263,
+   "f1": 0.872093023255814,
+   "f1_SUB": 0.8235294117647058,
+   "train_s": 5.347969941000002,
+   "msg_per_s": 19728.852757296158,
+   "p50_ms": 0.04256500001531549,
+   "p95_ms": 0.07274129998933175,
+   "usd_per_1k": 0.0
+  },
+  "2. BoW + MLP (deep learning)": {
+   "accuracy": 0.9896774193548387,
+   "precision": 0.9887640449438202,
+   "recall": 0.9263157894736842,
+   "f1": 0.9565217391304348,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 4.103319177000003,
+   "msg_per_s": 59221.05891675048,
+   "p50_ms": 0.21614749996956562,
+   "p95_ms": 0.26767899999242667,
+   "usd_per_1k": 0.0
+  },
+  "3a. Encoder (MiniLM) + kNN": {
+   "accuracy": 0.9716129032258064,
+   "precision": 0.8686868686868687,
+   "recall": 0.9052631578947369,
+   "f1": 0.88659793814433,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 2.410629510999968,
+   "msg_per_s": 116.52350228078943,
+   "p50_ms": 24.013391000011097,
+   "p95_ms": 37.96126110002831,
+   "usd_per_1k": 0.0
+  },
+  "3b. Encoder (MiniLM) + LogReg": {
+   "accuracy": 0.9858064516129033,
+   "precision": 0.9666666666666667,
+   "recall": 0.9157894736842105,
+   "f1": 0.9405405405405406,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 3.58895432099996,
+   "msg_per_s": 1317.6829863727996,
+   "p50_ms": 11.340108999974063,
+   "p95_ms": 17.643996599986163,
+   "usd_per_1k": 0.0
+  },
+  "3c. Encoder (MiniLM) + MLP head": {
+   "accuracy": 0.984516129032258,
+   "precision": 0.946236559139785,
+   "recall": 0.9263157894736842,
+   "f1": 0.9361702127659575,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 5.502626528999997,
+   "msg_per_s": 1456.7000596891712,
+   "p50_ms": 10.796759500010467,
+   "p95_ms": 12.053522100001146,
+   "usd_per_1k": 0.0
+  }
+ }
+}
